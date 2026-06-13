@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the accompanying paper."
+title: "Generating-Element Maximum Entropy: reproducibility code"
+repository-code: "https://github.com/SZabolotnii/Ku-MaxEnt-code-supplement"
+url: "https://github.com/SZabolotnii/Ku-MaxEnt-code-supplement"
+abstract: >-
+  Verification code (base R) for the paper "Generating-Element Maximum
+  Entropy for Non-Gaussian Uncertainty Evaluation".
+  Reproduces all four numerical experiments: heavy-tailed (Cauchy)
+  reconstruction, bimodal-mixture reconstruction, the generating-element /
+  tail-class matching study, and the M&V sampling-design optimization.
+type: software
+authors:
+  - family-names: "Zabolotnii"
+    given-names: "Serhii V."
+    email: "zabolotnii.serhii@csbc.edu.ua"
+version: "1.0.0"
+date-released: "2026-06-13"
+license: MIT
+keywords:
+  - maximum entropy
+  - generating element
+  - Kunchenko decomposition space
+  - PATP
+  - heavy-tailed distributions
+  - measurement uncertainty
+  - GUM
+references:
+  - type: article
+    title: >-
+      Generating-Element Maximum Entropy for Non-Gaussian Uncertainty
+      Evaluation
+    authors:
+      - family-names: "Zabolotnii"
+        given-names: "Serhii V."
+    year: 2026
