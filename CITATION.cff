@@ -12,7 +12,7 @@ abstract: >-
 type: software
 authors:
   - family-names: "Zabolotnii"
-    given-names: "Serhii V."
+    given-names: "Serhii"
     email: "zabolotnii.serhii@csbc.edu.ua"
 version: "1.0.0"
 date-released: "2026-06-13"
@@ -32,5 +32,5 @@ references:
       Evaluation
     authors:
       - family-names: "Zabolotnii"
-        given-names: "Serhii V."
+        given-names: "Serhii"
     year: 2026

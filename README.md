@@ -3,7 +3,7 @@
 Verification code for the paper:
 
 > **Generating-Element Maximum Entropy for Non-Gaussian Uncertainty Evaluation**
-> Serhii V. Zabolotnii, 2026.
+> Serhii Zabolotnii, 2026.
 
 **Repository:** <https://github.com/SZabolotnii/Ku-MaxEnt-code-supplement>
 (`git clone https://github.com/SZabolotnii/Ku-MaxEnt-code-supplement.git`)
