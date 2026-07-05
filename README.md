@@ -146,7 +146,10 @@ intentional and must be preserved: an earlier rectangle-rule version injected a
 │   ├── extra_ablations.R            linear-map control + 20-seed replication
 │   ├── free_exponent_baseline.R     FM-MEM free-exponent baseline
 │   ├── log_rational_element.R       Exp 3 generating-element comparison
-│   └── parity_matched_patp.R        PM-PATP final figures (run last)
+│   ├── parity_matched_patp.R        PM-PATP final figures
+│   ├── benchmark_rajan.R            Exp 5 head-to-head: multimodal (Rajan App. B) vs Pearson/GOPoly
+│   ├── heavy_tailed_v2.R            Exp 5 head-to-head: infinite-variance targets vs Pearson/GOPoly
+│   └── real_data_returns.R          Exp 5 head-to-head: real EuStockMarkets returns
 ├── run_all.R                   master driver
 ├── outputs/                    figures + logs (gitignored; created at run time)
 ├── README.md
@@ -163,6 +166,15 @@ auditable artifact, and there are small, intentional variant settings
 (`ablation_mixture.R` exposes the ridge as an argument for its sensitivity
 sub-study; `log_rational_element.R` raises `max_iter` to 200). Keeping them
 separate avoids silently changing any experiment's numerical behavior.
+
+## A note on external packages (Experiment 5 only)
+
+Experiments 1–4 use **base R only** and are bit-reproducible. The three
+Experiment-5 head-to-head scripts (`benchmark_rajan.R`, `heavy_tailed_v2.R`,
+`real_data_returns.R`) additionally require the **`PearsonDS`** package for the
+external Pearson baseline; `real_data_returns.R` also reads the base-R
+`EuStockMarkets` series (package `datasets`). They are standalone (not wired into
+`run_all.R`) and write their CSVs to `outputs/head_to_head/`.
 
 ## License
 
