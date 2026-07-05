@@ -20,7 +20,7 @@ representable and how well-conditioned the dual problem is.
 ## What this repository verifies
 
 A single dual MaxEnt solver (damped Newton with backtracking line search and a
-ridge-regularized dual Hessian) is exercised across four experiments:
+ridge-regularized dual Hessian) is exercised across five experiments:
 
 1. **Heavy tails (standard Cauchy)** — fractional-power PATP restores solver
    feasibility where classical monomial MaxEnt is infeasible, and reconstructs
@@ -34,9 +34,15 @@ ridge-regularized dual Hessian) is exercised across four experiments:
 4. **M&V sampling-design optimization** — an analytical product-moment MaxEnt
    fitness makes a genetic-algorithm evaluation exactly deterministic and far
    faster than Monte Carlo.
+5. **Head-to-head vs Pearson and GOPoly** — under the expanded-uncertainty
+   error metric the matched element is 3–10× more accurate than the Pearson
+   system and a monomial/GOPoly-equivalent baseline on heavy-tailed targets,
+   competitive on Rajan's multimodal benchmark and on real EuStockMarkets
+   returns; a dip-test router selects the element family automatically.
 
-All code is **base R** (no contributed packages). Every run is deterministic
-under a fixed seed.
+Experiments 1–4 are **base R** (no contributed packages); Experiment 5 uses
+`PearsonDS` (Pearson baseline), `diptest` (the router), and the base-R
+`EuStockMarkets` series. Every run is deterministic under a fixed seed.
 
 ---
 
@@ -59,6 +65,11 @@ under a fixed seed.
 | `mv_qmc_baseline.R`          | **Revision (reviewer Q5/W7): §sec:exp3** | Stronger M&V baseline: randomized quasi-MC (Halton+Cranley-Patterson) fitness + per-seed final designs for MC/RQMC/MaxEnt arms. RQMC cuts probe sd 12.6→4.3 (2.9×) and incurs 0/10 violations (vs plain MC 3/10) — so the analytical evaluator's durable edge is exact determinism (sd=0), true cumulants, and lowest cost sd (6.6 vs 10.2 vs 17.4), NOT a lower violation rate or speed over QMC. ⚠ slow (~few min: true-q05 checks at N=2e5). Env `MV_GA_SEEDS=0` for probe only. |
 | `tmaxent_auto_freq.R`        | **Revision (reviewer Q6): §sec:tmaxent + §sec:exp2** | Automated T-MaxEnt frequency rule replacing the fixed 0.05: N-aware 3σ admissibility (\|ψ̂(jp)\|≥3/√N) + held-out log-score selection. Over 10 seeds it lands in the accurate p∈{0.5,0.7} region (mean PDF-MSE penalty 1.7× vs oracle) vs 3.3× for the fixed (0.5,3) default, and rejects noise-floor configs (1.0,4)/(1.0,5) with no hand-set threshold. |
 | `parity_matched_patp.R`      | **Fig 1** (`fig:cauchy`), **Fig 2** (`fig:mixture`); rows of **Table 1** & **Table 2** | Parity-matched PATP (PM-PATP) Cauchy + mixture sweeps and the **final paper figures** `fig_cauchy_logpdf.pdf` and `fig_mixture_fits.pdf`. Confirms Cauchy α*=0.3 (Γ=2.395), mixture α*=0.7 (MSE 8.0×10⁻⁵, ~7× over monomial). |
+| `benchmark_rajan.R`          | **Exp 5, Table `tab:hh-multimodal`** | Multimodal head-to-head on Rajan 2018 App. B (6 distributions, exact moments): Ku T-MaxEnt vs monomial/GOPoly vs Pearson under the expanded-uncertainty error ε. Requires `PearsonDS`. |
+| `heavy_tailed_v2.R`          | **Exp 5, Table `tab:hh-heavy` (top)** | Heavy-tailed head-to-head (Cauchy/t2/t3/α-stable, 10 seeds): Ku LogRat/PM-PATP vs Pearson vs monomial/GOPoly, tail-quantile error + body KS. Requires `PearsonDS`. |
+| `real_data_returns.R`        | **Exp 5, Table `tab:hh-heavy` (bottom)** | Real-data validation on EuStockMarkets log-returns (4 indices) vs empirical quantiles: Ku LogRat ties Pearson, both beat monomial/GOPoly. Requires `PearsonDS`. |
+| `auto_selector.R`            | **§sec:selection, Table `tab:autoselect`** | Automatic dip-test element router (Hartigan dip → T-MaxEnt/LogRat) + within-family held-out selection; matches the per-target oracle on heavy-tailed/multimodal targets. Requires `diptest`. |
+| `basis_independence_check.R` | **Exp 5 monomial/GOPoly equivalence** | Confirms basis-independence: raw monomial vs Gram-Schmidt-orthonormalized (GOPoly-stabilized) MaxEnt give the identical converged density (max \|Δpdf\| ~1e-8) and identical ε (both 2.35% on the bimodal benchmark). Base R. |
 
 Output figures (written to `outputs/`):
 `fig_cauchy_logpdf.pdf`, `fig_mixture_fits.pdf`, `fig_genelement_cauchy.pdf`.
